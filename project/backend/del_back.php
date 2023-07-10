@@ -8,8 +8,8 @@ $uid = $_COOKIE['uid'];
 if (empty($id) || empty($uid)) {
     alertMsg('参数为空', '../front/register.php');
 }
-// 查询当前用户是否为管理员
 
+filterSql($uid,$id);
 // 查询是否为管理员
 $sql = "select * from users where id = '$uid'";
 

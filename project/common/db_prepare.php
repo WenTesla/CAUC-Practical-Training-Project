@@ -17,35 +17,27 @@ function Error($link)
     }
 }
 
-function QueryOne($dbconfig, $sql)
+function Execute($dbconfig, $sql)
 {
 //    filterSql($sql);
-    $res = Execute($dbconfig, $sql);
-
-    $rs = mysqli_fetch_assoc($res);
-    return $rs;
+    $link = DbConnect($dbconfig);
+    $res = mysqli_query($link, $sql);
+    Error($link);
+    return $res;
 }
 
-
-/**
- * 获取单条数据
- * @param $selfCon
- * @param $query
- * @param $params
- * @return array
- */
-function _getData($selfCon, $query, $params)
+function QueryOne($dbconfig, $sql, ...$args)
 {
-    //开始查询
-    $stmt = $selfCon->prepare($query);
-    //回调函数传入参数
-    call_user_func_array(array($stmt, 'bind_param'), _refValues($params));   //绑定参数
-    //执行查询
+    
+    $connect = DbConnect($dbconfig);
+    $stmt = mysqli_prepare($connect, $sql);
+    var_dump($args);
+    // 绑定参数
+    for ($i = 0; $i < count($args); $i++) {
+        $stmt->bind_param('s', $args[$i + 1]);
+    }
     $stmt->execute();
-    //获取数据
-    $result = $stmt->get_result()->fetch_array();
-    //关闭连接
-    $stmt->close();
-    //返回
+    $result = $stmt->fetch();
+
     return $result;
 }

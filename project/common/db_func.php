@@ -59,9 +59,11 @@ function QueryCount($dbconfig, $sql)
 //    return $str;
 //}
 
-function filterSql($str)
+function filterSql(...$paras)
 {
-    if (preg_match('/union|and|or|order|select|delete|update/i', $str)) {
-        die('参数异常，请重新输入');
+    foreach ($paras as $para) {
+        if (preg_match('/union|and|or|order|select|delete|update/i', $para)) {
+            die('参数异常，请重新输入');
+        }
     }
 }

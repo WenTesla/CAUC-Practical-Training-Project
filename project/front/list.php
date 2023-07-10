@@ -3,7 +3,7 @@
 $uname = $_COOKIE['uname'];
 $img = $_COOKIE['img'];
 
-require_once '../backend/list_back.php'
+require_once '../backend/list_back.php';
 
 ?>
 <!doctype html>

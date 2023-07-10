@@ -13,9 +13,12 @@ $uid = $_COOKIE['uid'];
 //$str = strip_tags($str);   //过滤html标签
 //
 //$str = htmlspecialchars($str);   //将字符内容转化为html实体
+filterSql($uid, $title, $author, $content);
 
 $title = xss_clean($title);
 $content = xss_clean($content);
+$title = xss_filter($title);
+$content = xss_filter($content);
 
 
 $sql = "insert into messages values (null,$uid,'$title','$author','$content',now())";
@@ -28,7 +31,7 @@ if ($res) {
     alertMsg('留言失败', '../front/add.php');
 }
 
-
+// 防范xss攻击
 function xss_clean($data)
 {
     // Fix &entity\n;
@@ -54,4 +57,39 @@ function xss_clean($data)
     } while ($old_data !== $data);
     // we are done...
     return $data;
+}
+
+
+
+/**
+ * xss过滤函数
+ *
+ * @param $string
+ * @return string
+ */
+function xss_filter($string) {
+
+    $string = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S', '', $string);
+
+    $parm1 = Array('javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink', 'link', 'script', 'embed', 'object', 'iframe', 'frame', 'frameset', 'ilayer', 'layer', 'bgsound', 'title', 'base');
+
+    $parm2 = Array('onabort', 'onactivate', 'onafterprint', 'onafterupdate', 'onbeforeactivate', 'onbeforecopy', 'onbeforecut', 'onbeforedeactivate', 'onbeforeeditfocus', 'onbeforepaste', 'onbeforeprint', 'onbeforeunload', 'onbeforeupdate', 'onblur', 'onbounce', 'oncellchange', 'onchange', 'onclick', 'oncontextmenu', 'oncontrolselect', 'oncopy', 'oncut', 'ondataavailable', 'ondatasetchanged', 'ondatasetcomplete', 'ondblclick', 'ondeactivate', 'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'onerror', 'onerrorupdate', 'onfilterchange', 'onfinish', 'onfocus', 'onfocusin', 'onfocusout', 'onhelp', 'onkeydown', 'onkeypress', 'onkeyup', 'onlayoutcomplete', 'onload', 'onlosecapture', 'onmousedown', 'onmouseenter', 'onmouseleave', 'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel', 'onmove', 'onmoveend', 'onmovestart', 'onpaste', 'onpropertychange', 'onreadystatechange', 'onreset', 'onresize', 'onresizeend', 'onresizestart', 'onrowenter', 'onrowexit', 'onrowsdelete', 'onrowsinserted', 'onscroll', 'onselect', 'onselectionchange', 'onselectstart', 'onstart', 'onstop', 'onsubmit', 'onunload');
+
+    $parm = array_merge($parm1, $parm2);
+
+    for ($i = 0; $i < sizeof($parm); $i++) {
+        $pattern = '/';
+        for ($j = 0; $j < strlen($parm[$i]); $j++) {
+            if ($j > 0) {
+                $pattern .= '(';
+                $pattern .= '(&#[x|X]0([9][a][b]);?)?';
+                $pattern .= '|(&#0([9][10][13]);?)?';
+                $pattern .= ')?';
+            }
+            $pattern .= $parm[$i][$j];
+        }
+        $pattern .= '/i';
+        $string = preg_replace($pattern, ' ', $string);
+    }
+    return $string;
 }

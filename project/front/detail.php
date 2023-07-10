@@ -27,20 +27,21 @@ require_once "../backend/detail_back_info.php";
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">我的留言板</a>
+            <a class="navbar-brand" href="#">帖子</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><span id="s1"><img src="<?= $img ?>" width="40" class="img-circle"
                                    alt=""></span>&nbsp;&nbsp;<?= $uname ?>
             </li>
+            
             <li><a href="../backend/logout_back.php"><span class="glyphicon glyphicon-log-in"></span> 退出</a>
             </li>
         </ul>
     </div>
 </nav>
 <div class="container text-center">
-    <p class=:"h3">增加留言
-        <sma1l><a href="../front/list.php">查看留言</a></sma1L>
+    <p class=:"h3">发帖
+        <sma1l><a href="../front/list.php">查看帖子</a></sma1L>
     </p>
 </div>
 
@@ -48,7 +49,7 @@ require_once "../backend/detail_back_info.php";
     <form action="../backend/add_back.php" role="form" method="post" class="form-horizontal"
           onsubmit="return checkError()" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="name" class="col-md-2 control-label ">留言标题</label>
+            <label for="name" class="col-md-2 control-label ">帖子标题</label>
             <div class="col-md-5">
                 <input type="text" name="title" class="form-control" id="name" value="<?= $res['title'] ?>"
                        readonly>
@@ -61,7 +62,7 @@ require_once "../backend/detail_back_info.php";
             </div>
         </div>
         <div class="form-group">
-            <label for="content" class="control-label col-md-2">留言内容</label>
+            <label for="content" class="control-label col-md-2">帖子内容</label>
             <div class="col-md-5">
                     <textarea name="content" class="form-control" id="content" cols="30" rows="10" readonly
                               style="resize: none"><?= $res['content'] ?></textarea>

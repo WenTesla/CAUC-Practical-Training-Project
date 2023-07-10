@@ -72,7 +72,7 @@
                 <label><input type="radio" value="0" name="sex">女</label>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" style="margin-left: 6px">
             <label class="col-md-5 control-label">头像</label>
             <input type="file" name="img" value="请上传头像">
         </div>

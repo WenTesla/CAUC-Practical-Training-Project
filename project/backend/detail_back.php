@@ -13,6 +13,7 @@ if (empty($uname)) {
     alertMsg("请先登录！", '../front/login.php');
 }
 
+filterSql($id,$uid);
 
 $sql = "select * from messages where id=$id and uid = $uid";
 
@@ -24,6 +25,7 @@ if (isset($res)) {
     jumpToUrl('../front/update.php?id=' . $id);
     return;
 }
+
 $sql = "select * from messages where id=$id ;";
 
 $res = QueryOne($dbconfig, $sql);

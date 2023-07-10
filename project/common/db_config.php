@@ -1,9 +1,9 @@
 <?php
 
 $dbconfig = [
-    'host' => 'localhost',
-    'user' => 'test',
-    'password' => 'zhang134679',
+    'host' => 'localhost:3307',
+    'user' => 'root',
+    'password' => 'root',
     'db' => 'training'
 ];
 

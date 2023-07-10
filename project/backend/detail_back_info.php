@@ -11,6 +11,7 @@ $id = $_GET['id'];
 if (empty($uname)) {
     alertMsg("请先登录！", '../front/login.php');
 }
+filterSql($id);
 $sql = "select * from messages where id=$id ";
 
 $res = QueryOne($dbconfig, $sql);

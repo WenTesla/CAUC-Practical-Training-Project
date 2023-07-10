@@ -42,7 +42,7 @@ if (empty($uname)) {
         <!-- 导航栏内容 -->
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">留言板</a></li>
+                <li class="active"><a href="#">帖子</a></li>
             </ul>
 
             <!-- 右侧登录按钮 -->
@@ -61,8 +61,8 @@ if (empty($uname)) {
 <body>
 
 <div class="container text-center">
-    <label for="title" class="col-md-5 control-label">添加留言</label>
-    <small>查看留言</small>
+    <label for="title" class="col-md-offset-1 control-label">添加帖子</label>
+    <small><a href="./list.php">查看帖子</a></small>
 </div>
 
 
@@ -73,7 +73,7 @@ if (empty($uname)) {
 
         <div class="form-group">
 
-            <label for="title" class="col-md-4 control-label">留言标题:</label>
+            <label for="title" class="col-md-4 control-label">帖子标题:</label>
             <div class="col-md-5">
                 <input type="text" name="title" class="form-control" id="name" placeholder="请输入标题"
                        onblur="checkInput(this)">
@@ -88,10 +88,10 @@ if (empty($uname)) {
             </div>
         </div>
         <div class="form-group">
-            <label for="content" class="col-md-4 control-label"">留言内容</label>
+            <label for="content" class="col-md-4 control-label"">帖子内容</label>
             <div class="col-md-4 ">
                 <textarea name="content" id="content" cols="30" rows="10" class="form-control"
-                          placeholder="请输入留言内容"
+                          placeholder="请输入帖子内容"
                           style="resize:none"></textarea>
             </div>
         </div>

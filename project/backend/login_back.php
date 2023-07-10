@@ -1,5 +1,5 @@
 <?php
-require '../common/comm_func.php';
+require_once '../common/comm_func.php';
 require_once '../common/db_func.php';
 
 session_start();
@@ -7,6 +7,7 @@ session_start();
 $uname = post('uname');
 $upass = post('upass');
 
+filterSql($uname, $upass);
 
 if (!isset($_SESSION['login_fail']) || $_SESSION['login_fail'] == 0) {
     alertMsg('请携带session', '../front/login.php');
@@ -26,11 +27,8 @@ $upass = hash('sha256', $upass);
 
 $sql = "select * from users where uname = '$uname' and upass = '$upass'";
 // 预编译
-$pre_sql = "select * from users where uname = ? and upass = ?";
 
 
-
-alertMsg($sql, '../front/login.php');
 //die();
 $res = QueryOne($dbconfig, $sql);
 

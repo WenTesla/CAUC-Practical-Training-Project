@@ -9,12 +9,15 @@ $pageNum = get('pageNum');
 if ($pageNum === "") {
     $pageNum = 1;
 }
+if ($pageNum <= 0){
+    alertMsg("超出范围", "../front/list.php?pageNum=1");
+}
 $pageSize = 5;
 
 if (empty($uname)) {
     alertMsg('请先登录', '../front/login.php');
 }
-
+filterSql($uname);
 // 查询message的数量
 $sql = "select count(*) from messages";
 
